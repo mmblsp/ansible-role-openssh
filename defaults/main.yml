@@ -1,2 +1,4 @@
 ---
 # defaults file for ssh
+openssh_permit_root_login: "no"
+openssh_port: 22

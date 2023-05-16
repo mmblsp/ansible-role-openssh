@@ -8,9 +8,17 @@
 - name: include default step variables
   include_vars: "{{ ansible_facts['distribution']|lower|regex_search('^\\S+') }}.yml"
 
-- name: Install {{ java_package_name }}
+- name: Install {{ ssh_package_list }}
   package:
     name: "{{ item }}"
     state: present
   become: true
   loop: "{{ ssh_package_list }}"
+
+- name: include config
+  include_tasks:
+    file: "{{ item }}"
+  with_first_found:
+    - files:
+        - "config_{{ ansible_facts['distribution']|lower|regex_search('^\\S+') }}.yml"
+        - config.yml

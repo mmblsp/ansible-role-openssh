@@ -1,0 +1,15 @@
+# DOCS: https://fishilico.github.io/generic-config/etc/ssh/sshd_config.default.raw.html
+
+Port {{ openssh_port}}
+PermitRootLogin {{ openssh_permit_root_login }}
+
+AuthorizedKeysFile    .ssh/authorized_keys
+
+ChallengeResponseAuthentication no
+
+UsePAM yes
+
+PrintMotd no # pam does that
+UsePrivilegeSeparation sandbox        # Default for new installations.
+
+Subsystem    sftp    /usr/lib/ssh/sftp-server

@@ -17,5 +17,12 @@ def test_installed_packages(host):
         for pkg in package_list_apt:
             assert host.package(pkg).is_installed
 
+
 def test_is_listening_22port(host):
     assert host.socket("tcp://0.0.0.0:22").is_listening
+
+
+def test_config_sshd(host):
+    host.backend.sudo = True
+    cmd = host.run("/usr/sbin/sshd -t")
+    assert cmd.exit_status == 0
